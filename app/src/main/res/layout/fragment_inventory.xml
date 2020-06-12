@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/ll_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_week"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:background="@mipmap/icon_week"
+            android:gravity="center"
+            android:text="本周出货清单"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/tv_mouth"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@mipmap/icon_mouth"
+            android:gravity="center"
+            android:text="本月出货清单"
+            android:textColor="@color/black5e"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+    <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+        android:id="@+id/swipeToLoadLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_list"
+        android:layout_gravity="center"
+        app:swipe_style="classic">
+
+        <include
+            android:id="@id/swipe_refresh_header"
+            layout="@layout/layout_google_hook_header" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/swipe_target"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <include
+            android:id="@id/swipe_load_more_footer"
+            layout="@layout/layout_google_hook_footer" />
+    </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+
+    <Button
+        android:id="@+id/tv_download"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
+        android:background="@drawable/next_shape"
+        android:gravity="center"
+        android:text="报表下载"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/ctv_sizen_14" />
+</RelativeLayout>
