@@ -34,7 +34,6 @@ android {
         ]
     }
 
-
     //签名信息
     signingConfigs {
         release {
