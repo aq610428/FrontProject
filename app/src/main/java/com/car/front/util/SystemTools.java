@@ -67,10 +67,10 @@ public final class SystemTools {
 //        infos.add(new CustomerInfo("洗车开单", R.mipmap.ic_wash));
 //        infos.add(new CustomerInfo("保养开单", R.mipmap.ic_sale));
 //        infos.add(new CustomerInfo("车检开单", R.mipmap.ic_drive));
-        infos.add(new CustomerInfo("客户管理", R.mipmap.ic_administration));
+//        infos.add(new CustomerInfo("客户管理", R.mipmap.ic_administration));
         infos.add(new CustomerInfo("商品管理", R.mipmap.ic_wares));
         infos.add(new CustomerInfo("回访记录", R.mipmap.ic_suggest));
-        infos.add(new CustomerInfo("前置仓", R.mipmap.ic_front));
+        infos.add(new CustomerInfo("中间仓", R.mipmap.ic_front));
         return infos;
     }
 

@@ -118,6 +118,11 @@
             android:name=".ui.activity.PreviewActivity"
             android:screenOrientation="portrait" />
 
+
+        <activity
+            android:name=".ui.activity.ReturnActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.activity.AssetsActivity"
             android:screenOrientation="portrait" />

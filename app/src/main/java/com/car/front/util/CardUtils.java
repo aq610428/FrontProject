@@ -1,9 +1,7 @@
 package com.car.front.util;
 
 import android.os.Build;
-
 import androidx.cardview.widget.CardView;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -53,19 +51,6 @@ public class CardUtils {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-
-    }
-
-    public static void setCardShadowColor(CardView cardView, int startColor, int endColor) {
-        try {
-            //获取背景
-            Object background = cardView.getBackground();
-            //设置颜色
-            setMember(background, "mShadowStartColor", "#3F80F4");
-            setMember(background, "mShadowEndColor", "#FFFFFF");
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
     }

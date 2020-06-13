@@ -83,6 +83,15 @@ public class OwnerAdapter extends AutoRVAdapter {
             }
         });
 
+        vh.getTextView(R.id.text_mobile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                phone = vh.getTextView(R.id.text_mobile).getText().toString().trim();
+                fragment.requestPermission(new String[]{Manifest.permission.CALL_PHONE}, 3);
+            }
+        });
+
+
         TextView text_receiving = vh.getTextView(R.id.text_receiving);
         if (bespoke.getStatus() == 1) {//未接单
             text_receiving.setText("接受预约");

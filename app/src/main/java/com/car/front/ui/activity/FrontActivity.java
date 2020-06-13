@@ -58,7 +58,7 @@ public class FrontActivity extends BaseActivity implements OnRefreshListener, On
         title_left_btn.setOnClickListener(this);
         text_goods.setOnClickListener(this);
         text_add.setOnClickListener(this);
-        title_text_tv.setText("前置仓");
+        title_text_tv.setText("中间仓");
         swipeToLoadLayout.setOnLoadMoreListener(this);
         swipeToLoadLayout.setOnRefreshListener(this);
         init();

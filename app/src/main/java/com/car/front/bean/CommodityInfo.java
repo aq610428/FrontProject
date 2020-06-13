@@ -13,11 +13,26 @@ public class CommodityInfo implements Serializable {
     private String mechanical;
     private String originalPrice;
 
+    public boolean isCheck() {
+        return isCheck;
+    }
+
+    public void setCheck(boolean check) {
+        isCheck = check;
+    }
+
+    private boolean isCheck;
+
     public CommodityInfo(String name, String stock, String mechanical, String originalPrice) {
         this.name=name;
         this.stock=stock;
         this.mechanical=mechanical;  this.originalPrice=originalPrice;
     }
+
+    public CommodityInfo(String name) {
+        this.name=name;
+    }
+
 
     public String getName() {
         return name;

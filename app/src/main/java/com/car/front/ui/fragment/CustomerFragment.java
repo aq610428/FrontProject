@@ -11,11 +11,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
@@ -32,9 +34,11 @@ import com.car.front.config.NetWorkListener;
 import com.car.front.config.okHttpModel;
 import com.car.front.ocr.camera.CameraActivity;
 import com.car.front.ui.activity.ClientActivity;
+import com.car.front.ui.activity.CommodityActivity;
 import com.car.front.ui.activity.FrontActivity;
 import com.car.front.ui.activity.KeepActivity;
 import com.car.front.ui.activity.MassageActivity;
+import com.car.front.ui.activity.ReturnActivity;
 import com.car.front.util.Constants;
 import com.car.front.util.FileUtil;
 import com.car.front.util.JsonParse;
@@ -43,10 +47,13 @@ import com.car.front.util.SaveUtils;
 import com.car.front.util.SystemTools;
 import com.car.front.util.Utility;
 import com.car.front.weight.EmptyDataView;
+
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import crossoverone.statuslib.StatusUtil;
 
 /****
@@ -135,7 +142,15 @@ public class CustomerFragment extends BaseFragment implements View.OnClickListen
         tableAdapter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getContext(), FrontActivity.class));
+                String name = infos.get(position).getName();
+                if ("商品管理".equals(name)) {
+                    startActivity(new Intent(getContext(), CommodityActivity.class));
+                } else if ("回访记录".equals(name)) {
+                    startActivity(new Intent(getContext(), ReturnActivity.class));
+                } else {
+                    startActivity(new Intent(getContext(), FrontActivity.class));
+                }
+
             }
         });
     }
