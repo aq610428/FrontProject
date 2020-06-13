@@ -110,7 +110,6 @@ public class OwnerAdapter extends AutoRVAdapter {
             @Override
             public void onClick(View v) {
                 DialogUtils.showMapView(bespoke.getStoreAddress(),fragment.getActivity());
-
             }
         });
     }

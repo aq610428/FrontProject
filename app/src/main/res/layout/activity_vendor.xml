@@ -16,8 +16,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         android:layout_marginTop="50dp"
+        android:layout_marginRight="15dp"
         app:hl_cornerRadius="3dp"
         app:hl_shadowBackColor="#fff"
         app:hl_shadowColor="#2A696969"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="15dp">
+            android:padding="10dp">
 
 
             <LinearLayout
@@ -56,7 +56,7 @@
                         android:layout_height="40dp"
                         android:layout_alignParentRight="true"
                         android:background="@color/colorWhite"
-                        android:gravity="center|left"
+                        android:gravity="center|right"
                         android:text="机滤"
                         android:textColor="@color/black7e"
                         android:textSize="@dimen/ctv_sizen_14" />
@@ -272,9 +272,9 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/ll"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:src="@mipmap/icon_head" />
 
 </RelativeLayout>

@@ -58,6 +58,12 @@ public class DialogUtils {
         layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
         window.setAttributes(layoutParams);
         dialog.setContentView(view);
+        view.findViewById(R.id.rl_dialog).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         view.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +103,6 @@ public class DialogUtils {
                 dialog.dismiss();
             }
         });
-
         dialog.show();
     }
 }

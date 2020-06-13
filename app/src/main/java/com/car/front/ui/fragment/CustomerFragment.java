@@ -132,7 +132,6 @@ public class CustomerFragment extends BaseFragment implements View.OnClickListen
         infos = SystemTools.getListCustomerInfo();
         tableAdapter = new TableAdapter(getContext(), infos);
         rv_table.setAdapter(tableAdapter);
-
         tableAdapter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -356,6 +355,4 @@ public class CustomerFragment extends BaseFragment implements View.OnClickListen
         page = 1;
         query();
     }
-
-
 }
