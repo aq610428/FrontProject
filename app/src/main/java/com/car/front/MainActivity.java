@@ -138,7 +138,6 @@ public class MainActivity extends BaseActivity implements NetWorkListener {
         TextView tv_mine2 = mTabHost.getTabWidget().getChildAt(2).findViewById(R.id.textview);
         tv_mine2.setTextColor(Color.parseColor("#666666"));
 
-
         TextView tv_mine3 = mTabHost.getTabWidget().getChildAt(3).findViewById(R.id.textview);
         tv_mine3.setTextColor(Color.parseColor("#666666"));
     }
@@ -204,29 +203,6 @@ public class MainActivity extends BaseActivity implements NetWorkListener {
         showDialog();
     }
 
-
-    public void showDialog() {
-        Dialog dialog = new Dialog(this);
-        View view = LayoutInflater.from(this).inflate(R.layout.dialog_layout1, null);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(view);
-        ((TextView) view.findViewById(R.id.title)).setText("温馨提示");
-        ((TextView) view.findViewById(R.id.message)).setText("确定退出前置仓?");
-        view.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        view.findViewById(R.id.confirm).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OnEventExit();
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
-    }
 
 
     /**
@@ -311,5 +287,31 @@ public class MainActivity extends BaseActivity implements NetWorkListener {
     public void onError(Exception e) {
         stopProgressDialog();
     }
+
+
+    public void showDialog() {
+        Dialog dialog = new Dialog(this);
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_layout1, null);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(view);
+        ((TextView) view.findViewById(R.id.title)).setText("温馨提示");
+        ((TextView) view.findViewById(R.id.message)).setText("确定退出前置仓?");
+        view.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        view.findViewById(R.id.confirm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OnEventExit();
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+
 }
 

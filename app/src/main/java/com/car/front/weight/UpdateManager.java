@@ -8,17 +8,14 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.car.front.R;
 import com.car.front.bean.Verison;
 import com.car.front.util.BigDecimalUtils;
-import com.car.front.util.LogUtils;
 import com.car.front.util.SystemTools;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.FileCallback;
 import com.lzy.okgo.model.Progress;
 import com.lzy.okgo.model.Response;
-
 import java.io.File;
 import java.math.BigDecimal;
 
@@ -76,7 +73,6 @@ public class UpdateManager {
 
     ProgressBar mProgressBar;
     private Dialog mDialog;
-
     public void showDialog() {
         mDialog = new Dialog(activity);
         View view = LayoutInflater.from(activity).inflate(R.layout.dialog_generals_down, null);
@@ -112,7 +108,6 @@ public class UpdateManager {
             @Override
             public void onError(Response<File> response) {
                 super.onError(response);
-
             }
 
             @Override
@@ -121,7 +116,6 @@ public class UpdateManager {
                 if (progress != null) {
                     BigDecimal current = BigDecimalUtils.mul(BigDecimalUtils.div(new BigDecimal(progress.currentSize), new BigDecimal(progress.totalSize), 2), new BigDecimal(100));
                     mProgressBar.setProgress(current.intValue());
-                    LogUtils.e(mProgressBar.getProgress());
                 }
             }
         });

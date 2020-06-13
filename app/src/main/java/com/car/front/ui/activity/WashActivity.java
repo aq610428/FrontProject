@@ -12,7 +12,6 @@ import com.car.front.adapter.RepairAdapter;
 import com.car.front.base.BaseActivity;
 import com.car.front.base.BaseApplication;
 import com.car.front.bean.ClientInfo;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +51,6 @@ public class WashActivity extends BaseActivity {
     protected void initData() {
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
-
         infos.add(new ClientInfo("洗车", "B326963", "9"));
         infos.add(new ClientInfo("洗车", "B326963", "9"));
         infos.add(new ClientInfo("洗车", "B326963", "9"));

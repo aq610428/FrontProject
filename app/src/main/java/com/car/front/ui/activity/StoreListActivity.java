@@ -182,7 +182,6 @@ public class StoreListActivity extends BaseActivity implements NetWorkListener {
             PreferenceUtils.setPrefString(this, "city", "");
             PreferenceUtils.setPrefString(this, "district", "");
             PreferenceUtils.setPrefString(this, "provider", "");
-            LogUtils.e("province=" + province + "city=" + city);
         }
     }
 
