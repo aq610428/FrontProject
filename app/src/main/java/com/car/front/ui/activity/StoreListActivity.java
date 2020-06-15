@@ -1,17 +1,23 @@
 package com.car.front.ui.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.car.front.R;
 import com.car.front.adapter.StoreAdapter;
+import com.car.front.adapter.StoreListAdapter;
 import com.car.front.base.BaseActivity;
 import com.car.front.base.BaseApplication;
 import com.car.front.bean.CommonalityModel;
@@ -26,7 +32,9 @@ import com.car.front.util.Md5Util;
 import com.car.front.util.SaveUtils;
 import com.car.front.util.Utility;
 import com.car.front.weight.NoDataView;
+
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,11 +45,11 @@ import java.util.Map;
  * @date: 2020/5/28
  * @name:门店列表
  */
-public class StoreActivity extends BaseActivity implements OnLoadMoreListener, NetWorkListener, OnRefreshListener {
+public class StoreListActivity extends BaseActivity implements OnLoadMoreListener, NetWorkListener, OnRefreshListener {
     private TextView title_text_tv, title_left_btn, title_right_btn;
     private RecyclerView swipe_target;
     private SwipeToLoadLayout swipeToLoadLayout;
-    private StoreAdapter adapter;
+    private StoreListAdapter adapter;
     private List<StoreInfo> infos = new ArrayList<>();
     private int limit = 10;
     private int page = 1;
@@ -75,7 +83,7 @@ public class StoreActivity extends BaseActivity implements OnLoadMoreListener, N
         LinearLayoutManager manager = new LinearLayoutManager(this);
         swipe_target.setLayoutManager(manager);
         mNoDataView.textView.setText("您还没有添加门店");
-        title_right_btn.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_add_store,0,0,0);
+        title_right_btn.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_add_store, 0, 0, 0);
     }
 
     @Override
@@ -98,8 +106,6 @@ public class StoreActivity extends BaseActivity implements OnLoadMoreListener, N
     }
 
 
-
-
     @Override
     public void onLoadMore() {
         isRefresh = true;
@@ -118,7 +124,7 @@ public class StoreActivity extends BaseActivity implements OnLoadMoreListener, N
         params.put("page", page + "");
         params.put("partnerid", Constants.PARTNERID);
         params.put("sign", Md5Util.encode(sign));
-        okHttpModel.get(Api.GET_INFO, params, Api.GET_INFOO_ID, this);
+        okHttpModel.get(Api.GET_STORE_VERSION, params, Api.GET_STORE_VERSION_ID, this);
     }
 
 
@@ -127,7 +133,7 @@ public class StoreActivity extends BaseActivity implements OnLoadMoreListener, N
         if (object != null && commonality != null && !Utility.isEmpty(commonality.getStatusCode())) {
             if (Constants.SUCESSCODE.equals(commonality.getStatusCode())) {
                 switch (id) {
-                    case Api.GET_INFOO_ID:
+                    case Api.GET_STORE_VERSION_ID:
                         List<StoreInfo> infos = JsonParse.getStoreJson(object);
                         if (infos != null && infos.size() > 0) {
                             setAdapter(infos);
@@ -152,7 +158,7 @@ public class StoreActivity extends BaseActivity implements OnLoadMoreListener, N
         if (!isRefresh) {
             infos.clear();
             infos.addAll(voList);
-            adapter = new StoreAdapter(this, infos);
+            adapter = new StoreListAdapter(this, infos);
             swipe_target.setAdapter(adapter);
         } else {
             infos.addAll(voList);
@@ -161,11 +167,33 @@ public class StoreActivity extends BaseActivity implements OnLoadMoreListener, N
         adapter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(StoreActivity.this, StoreDeilActivity.class);
+                Intent intent = new Intent(StoreListActivity.this, StoreDeilActivity.class);
                 intent.putExtra("info", infos.get(position));
                 startActivity(intent);
             }
         });
+    }
+
+    public void showDialog(String storeId) {
+        Dialog dialog = new Dialog(this);
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_layout1, null);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(view);
+        ((TextView) view.findViewById(R.id.title)).setText("温馨提示");
+        ((TextView) view.findViewById(R.id.message)).setText("确定绑定当前门店?");
+        view.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        view.findViewById(R.id.confirm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
 
@@ -186,7 +214,7 @@ public class StoreActivity extends BaseActivity implements OnLoadMoreListener, N
     @Override
     public void onRefresh() {
         isRefresh = false;
-        page=1;
+        page = 1;
         qury();
     }
 }

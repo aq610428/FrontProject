@@ -129,4 +129,9 @@ public interface Api {
     /******注册成功******/
     String GET_MSG_VERSION = Config.getOpenNewApi() + "/member/getmembermessagelist";
     int GET_MSG_VERSION_ID = 100030;
+
+    /******附近门店******/
+    String GET_STORE_VERSION = Config.getOpenNewApi() + "/store/queryNearStoreInfoData";
+    int GET_STORE_VERSION_ID = 100031;
+
 }

@@ -49,32 +49,36 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:paddingTop="7dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/text_verify"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="营业时间:10:00-06:00"
-                    android:textColor="@color/black33"
-                    android:textSize="@dimen/ctv_sizen_13" />
+                android:layout_height="wrap_content"
+                android:paddingTop="7dp">
 
 
                 <TextView
                     android:id="@+id/text_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:gravity="center"
                     android:text="20m"
                     android:textColor="@color/black33"
                     android:textSize="@dimen/ctv_sizen_13" />
 
 
+                <TextView
+                    android:id="@+id/text_verify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/next_bg_nor"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:text="立即绑定"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/ctv_sizen_13" />
             </RelativeLayout>
-
 
 
         </LinearLayout>
