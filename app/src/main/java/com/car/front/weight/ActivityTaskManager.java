@@ -1,7 +1,6 @@
 package com.car.front.weight;
 
 import android.app.Activity;
-
 import java.util.HashMap;
 import java.util.Set;
 

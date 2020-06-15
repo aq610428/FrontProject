@@ -76,7 +76,7 @@ public class StoreDeilActivity extends BaseActivity1 {
                 finish();
                 break;
             case R.id.text_album:
-                intent = new Intent(StoreDeilActivity.this, PhotoActivity.class);
+                intent = new Intent(StoreDeilActivity.this, ListPhotoActivity.class);
                 intent.putExtra("info", info);
                 startActivity(intent);
                 break;

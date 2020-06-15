@@ -71,10 +71,6 @@
             android:name=".ui.activity.LoginActivity"
             android:theme="@style/AppTheme1"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.StoreListActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <activity
             android:name=".MainActivity"
@@ -145,10 +141,6 @@
 
         <activity
             android:name=".ui.activity.BasicActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".ui.activity.LocationActivity"
             android:screenOrientation="portrait" />
 
         <activity
@@ -233,10 +225,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.IntegralActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".ui.activity.PoiSearchActivity"
             android:screenOrientation="portrait" />
 
         <activity

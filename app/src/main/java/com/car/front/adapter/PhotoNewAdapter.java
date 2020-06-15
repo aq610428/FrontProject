@@ -42,11 +42,6 @@ public class PhotoNewAdapter extends AutoRVAdapter {
         imageView.setLayoutParams(layoutParams);
         GlideUtils.setImageUrl(infos.get(position).getPhotoFile(), imageView);
         vh.getTextView(R.id.text_jcompany).setText(infos.get(position).getTitle());
-        vh.getImageView(R.id.iv_delete).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.quryDel(infos.get(position).getId());
-            }
-        });
+
     }
 }

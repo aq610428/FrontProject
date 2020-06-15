@@ -39,6 +39,7 @@ import com.car.front.ui.activity.FrontActivity;
 import com.car.front.ui.activity.KeepActivity;
 import com.car.front.ui.activity.MassageActivity;
 import com.car.front.ui.activity.ReturnActivity;
+import com.car.front.ui.activity.StoreActivity;
 import com.car.front.util.Constants;
 import com.car.front.util.FileUtil;
 import com.car.front.util.JsonParse;
@@ -147,6 +148,8 @@ public class CustomerFragment extends BaseFragment implements View.OnClickListen
                     startActivity(new Intent(getContext(), CommodityActivity.class));
                 } else if ("回访记录".equals(name)) {
                     startActivity(new Intent(getContext(), ReturnActivity.class));
+                } else if ("我的门店".equals(name)) {
+                    startActivity(new Intent(getContext(), StoreActivity.class));
                 } else {
                     startActivity(new Intent(getContext(), FrontActivity.class));
                 }

@@ -19,8 +19,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
-
-import com.amap.api.maps.model.LatLng;
 import com.car.front.R;
 import com.car.front.base.BaseApplication;
 import com.car.front.bean.CustomerInfo;
@@ -67,7 +65,7 @@ public final class SystemTools {
 //        infos.add(new CustomerInfo("洗车开单", R.mipmap.ic_wash));
 //        infos.add(new CustomerInfo("保养开单", R.mipmap.ic_sale));
 //        infos.add(new CustomerInfo("车检开单", R.mipmap.ic_drive));
-//        infos.add(new CustomerInfo("客户管理", R.mipmap.ic_administration));
+        infos.add(new CustomerInfo("我的门店", R.mipmap.ic_administration));
         infos.add(new CustomerInfo("商品管理", R.mipmap.ic_wares));
         infos.add(new CustomerInfo("回访记录", R.mipmap.ic_suggest));
         infos.add(new CustomerInfo("中间仓", R.mipmap.ic_front));

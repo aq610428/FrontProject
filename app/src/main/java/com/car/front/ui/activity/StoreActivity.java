@@ -24,7 +24,6 @@ import com.car.front.util.Constants;
 import com.car.front.util.JsonParse;
 import com.car.front.util.Md5Util;
 import com.car.front.util.SaveUtils;
-import com.car.front.util.ToastUtil;
 import com.car.front.util.Utility;
 import com.car.front.weight.NoDataView;
 import org.json.JSONObject;
@@ -55,14 +54,10 @@ public class StoreActivity extends BaseActivity implements OnLoadMoreListener, N
     protected void initCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_store_list);
         BaseApplication.activityTaskManager.putActivity("StoreActivity", this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         info = SaveUtils.getSaveInfo();
         qury();
     }
+
 
     @Override
     protected void initView() {
@@ -76,7 +71,7 @@ public class StoreActivity extends BaseActivity implements OnLoadMoreListener, N
         swipeToLoadLayout.setOnLoadMoreListener(this);
         swipeToLoadLayout.setOnRefreshListener(this);
         title_right_btn.setOnClickListener(this);
-        title_text_tv.setText("门店列表");
+        title_text_tv.setText("我的门店");
         LinearLayoutManager manager = new LinearLayoutManager(this);
         swipe_target.setLayoutManager(manager);
         mNoDataView.textView.setText("您还没有添加门店");

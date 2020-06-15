@@ -83,7 +83,6 @@ public class PhotoActivity extends BaseActivity implements NetWorkListener {
         title_left_btn.setOnClickListener(this);
         title_right_tv.setOnClickListener(this);
         title_text_tv.setText("门店相册");
-        title_right_tv.setText("新增照片");
         mNoDataView.textView.setText("您还没有添加门店照片~");
     }
 
@@ -105,9 +104,6 @@ public class PhotoActivity extends BaseActivity implements NetWorkListener {
             case R.id.title_left_btn:
                 finish();
                 break;
-            case R.id.title_right_tv:
-                requestPermission(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 3);
-                break;
         }
     }
 
@@ -125,35 +121,6 @@ public class PhotoActivity extends BaseActivity implements NetWorkListener {
         okHttpModel.get(Api.GET_IMAGE, params, Api.GET_IMAGE_ID, this);
     }
 
-    /*****删除门店图片*****/
-    public void quryDel(String id) {
-        String sign = "id=" + id + "&partnerid=" + Constants.PARTNERID + Constants.SECREKEY;
-        showProgressDialog(this, false);
-        Map<String, String> params = okHttpModel.getParams();
-        params.put("apptype", Constants.TYPE);
-        params.put("id", id + "");
-        params.put("partnerid", Constants.PARTNERID);
-        params.put("sign", Md5Util.encode(sign));
-        okHttpModel.get(Api.GET_REMOVE, params, Api.GET_REMOVE_ID, this);
-    }
-
-
-    /*****新增门店图片*****/
-    private void quryList() {
-        String sign = "partnerid=" + Constants.PARTNERID + "&photoFile=" + result + "&sort=" + num + "&status=2&storeId=" + info.getId() + "&title=" + title + Constants.SECREKEY;
-        showProgressDialog(this, false);
-        Map<String, String> params = okHttpModel.getParams();
-        params.put("apptype", Constants.TYPE);
-        params.put("partnerid", Constants.PARTNERID);
-        params.put("photoFile", result + "");
-        params.put("sort", num);
-        params.put("status", "2");
-        params.put("storeId", info.getId() + "");
-        params.put("title", title);
-        params.put("sign", Md5Util.encode(sign));
-        okHttpModel.get(Api.GET_IMAGEINFO, params, Api.GET_IMAGEINFO_ID, this);
-    }
-
 
     @Override
     public void onSucceed(JSONObject object, int id, CommonalityModel commonality) {
@@ -168,14 +135,6 @@ public class PhotoActivity extends BaseActivity implements NetWorkListener {
                         } else {
                             mNoDataView.setVisibility(View.VISIBLE);
                         }
-                        break;
-                    case Api.GET_IMAGEINFO_ID:
-                        ToastUtil.showToast(commonality.getErrorDesc());
-                        qury();
-                        break;
-                    case Api.GET_REMOVE_ID:
-                        ToastUtil.showToast(commonality.getErrorDesc());
-                        qury();
                         break;
                 }
             } else {
@@ -200,124 +159,7 @@ public class PhotoActivity extends BaseActivity implements NetWorkListener {
         });
     }
 
-    @Override
-    public void permissinSucceed(int code) {
-        super.permissinSucceed(code);
-        selectPhoto();
-    }
 
-    private void selectPhoto() {
-        Album.initialize(AlbumConfig.newBuilder(this)
-                .setAlbumLoader(new MediaLoader())
-                .build());
-        ArrayList<AlbumFile> albumFiles = new ArrayList<>();
-        Album.image(this) // Image selection.
-                .multipleChoice()
-                .camera(true)
-                .columnCount(4)
-                .selectCount(1)
-                .checkedList(albumFiles)
-                .onResult(result -> {
-                    if (result != null && result.size() > 0) {
-                        String path = result.get(0).getPath();
-                        LogUtils.e("path=" + path);
-                        initLuban(path);
-                    }
-                })
-                .onCancel(result -> LogUtils.e("已"))
-                .start();
-    }
-
-    /*****图片压缩*****/
-    private void initLuban(String path) {
-        Luban.with(this).load(new File(path)).ignoreBy(100)
-                .setCompressListener(new OnCompressListener() { //设置回调
-                    @Override
-                    public void onStart() {
-                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
-                    }
-
-                    @Override
-                    public void onSuccess(File file) {
-                        if (file != null) {
-                            upLoad(file);
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        // TODO 当压缩过程出现问题时调用
-                    }
-                }).launch();
-    }
-
-    String result;
-
-    private void upLoad(File file) {
-        String sign = "partnerid=" + Constants.PARTNERID + Constants.SECREKEY;
-        showProgressDialog(this, false);
-        Map<String, String> params = okHttpModel.getParams();
-        params.put("apptype", Constants.TYPE);
-        params.put("partnerid", Constants.PARTNERID);
-        params.put("sign", Md5Util.encode(sign));
-        OkGo.<String>post(Api.GET_UPDATELOAD).isMultipart(true).tag(BaseApplication.getContext()).params(params).params("file", file).execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                if (response.body() != null) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.body());
-                        result = jsonObject.optString("result");
-                        showDialog();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                stopProgressDialog();
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                stopProgressDialog();
-            }
-        });
-    }
-
-    private String title, num;
-
-    public void showDialog() {
-        Dialog dialog = new Dialog(this);
-        View view = LayoutInflater.from(this).inflate(R.layout.dialog_photo, null);
-        EditText et_name = view.findViewById(R.id.et_name);
-        EditText et_num = view.findViewById(R.id.et_num);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(view);
-        view.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        view.findViewById(R.id.confirm).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                title = et_name.getText().toString();
-                num = et_num.getText().toString();
-                if (Utility.isEmpty(title)) {
-                    ToastUtil.showToast("请输入照片描述");
-                    return;
-                }
-
-                if (Utility.isEmpty(num)) {
-                    ToastUtil.showToast("请输入照片编号");
-                    return;
-                }
-                quryList();
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
-    }
 
 
     @Override

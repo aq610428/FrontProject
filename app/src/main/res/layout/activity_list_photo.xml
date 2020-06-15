@@ -2,17 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
+
+
+    <include layout="@layout/activity_title" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000" />
+        android:layout_marginTop="50dp"
+        android:background="@color/black" />
 
 
     <TextView
-        android:id="@+id/title_text_tv"
+        android:id="@+id/text_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -20,5 +25,12 @@
         android:gravity="center"
         android:textColor="@color/colorWhite"
         android:textSize="15sp" />
+
+
+    <com.car.front.weight.NoDataView
+        android:id="@+id/mNoDataView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
 </RelativeLayout>
