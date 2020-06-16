@@ -86,7 +86,6 @@ public class StoreListActivity extends BaseActivity implements OnLoadMoreListene
     @Override
     protected void initData() {
 
-
     }
 
     @Override
