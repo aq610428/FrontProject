@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="20m"
+                    android:text="0m"
                     android:textColor="@color/black33"
                     android:textSize="@dimen/ctv_sizen_13" />
 

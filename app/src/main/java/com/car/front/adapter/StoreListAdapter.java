@@ -34,7 +34,7 @@ public class StoreListAdapter extends AutoRVAdapter {
     public void onBindViewHolder(ViewHolder vh, int position) {
         StoreInfo info = infos.get(position);
         vh.getTextView(R.id.text_name).setText(infos.get(position).getName());
-        GlideUtils.CreateImageRound(infos.get(position).getLogo(), vh.getImageView(R.id.iv_photo), 5);
+        GlideUtils.CreateImageRound(infos.get(position).getLogo(), vh.getImageView(R.id.iv_photo), 2);
         vh.getTextView(R.id.tv_address).setText(info.getAddress());
         if (info.getDistance()>=1000){
             vh.getTextView(R.id.text_distance).setText(BigDecimalUtils.div(new BigDecimal(info.getDistance()),new BigDecimal(1000),2) + "km");
