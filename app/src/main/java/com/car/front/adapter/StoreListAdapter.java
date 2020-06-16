@@ -5,6 +5,9 @@ import com.car.front.R;
 import com.car.front.bean.StoreInfo;
 import com.car.front.glide.GlideUtils;
 import com.car.front.ui.activity.StoreListActivity;
+import com.car.front.util.BigDecimalUtils;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -33,7 +36,13 @@ public class StoreListAdapter extends AutoRVAdapter {
         vh.getTextView(R.id.text_name).setText(infos.get(position).getName());
         GlideUtils.CreateImageRound(infos.get(position).getLogo(), vh.getImageView(R.id.iv_photo), 5);
         vh.getTextView(R.id.tv_address).setText(info.getAddress());
-        vh.getTextView(R.id.text_distance).setText(info.getDistance() + "m");
+        if (info.getDistance()>=1000){
+            vh.getTextView(R.id.text_distance).setText(BigDecimalUtils.div(new BigDecimal(info.getDistance()),new BigDecimal(1000),2) + "km");
+        }else{
+            vh.getTextView(R.id.text_distance).setText(info.getDistance() + "m");
+        }
+
+
 
         vh.getTextView(R.id.text_verify).setOnClickListener(new View.OnClickListener() {
             @Override
