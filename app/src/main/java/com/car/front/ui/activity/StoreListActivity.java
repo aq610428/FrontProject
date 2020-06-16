@@ -30,6 +30,7 @@ import com.car.front.util.Constants;
 import com.car.front.util.JsonParse;
 import com.car.front.util.Md5Util;
 import com.car.front.util.SaveUtils;
+import com.car.front.util.ToastUtil;
 import com.car.front.util.Utility;
 import com.car.front.weight.NoDataView;
 
@@ -126,6 +127,22 @@ public class StoreListActivity extends BaseActivity implements OnLoadMoreListene
     }
 
 
+    /*****绑定门店******/
+    public void bindQury(String storeId) {
+        String sign ="memberId=" + info.getId() + "&partnerid=" + Constants.PARTNERID+"&storeId="+storeId + Constants.SECREKEY;
+        showProgressDialog(this, false);
+        Map<String, String> params = okHttpModel.getParams();
+        params.put("apptype", Constants.TYPE);
+        params.put("memberId", info.getId() + "");
+        params.put("limit", limit + "");
+        params.put("page", page + "");
+        params.put("storeId", storeId+"");
+        params.put("partnerid", Constants.PARTNERID);
+        params.put("sign", Md5Util.encode(sign));
+        okHttpModel.get(Api.GET_BAND_VERSION, params, Api.GET_BAND_VERSION_ID, this);
+    }
+
+
     @Override
     public void onSucceed(JSONObject object, int id, CommonalityModel commonality) {
         if (object != null && commonality != null && !Utility.isEmpty(commonality.getStatusCode())) {
@@ -142,7 +159,12 @@ public class StoreListActivity extends BaseActivity implements OnLoadMoreListene
                             }
                         }
                         break;
+                    case Api.GET_BAND_VERSION_ID:
+                        ToastUtil.showToast(commonality.getErrorDesc()+"");
+                        break;
                 }
+            }else{
+                ToastUtil.showToast(commonality.getErrorDesc()+"");
             }
         }
         stopProgressDialog();
@@ -188,6 +210,7 @@ public class StoreListActivity extends BaseActivity implements OnLoadMoreListene
         view.findViewById(R.id.confirm).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bindQury(storeId);
                 dialog.dismiss();
             }
         });

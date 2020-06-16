@@ -134,4 +134,9 @@ public interface Api {
     String GET_STORE_VERSION = Config.getOpenNewApi() + "/store/queryNearStoreInfoData";
     int GET_STORE_VERSION_ID = 100031;
 
+
+    /******绑定门店******/
+    String GET_BAND_VERSION = Config.getOpenNewApi() + "/store/bandingStore";
+    int GET_BAND_VERSION_ID = 100032;
+
 }
