@@ -22,12 +22,12 @@ public class StoreListAdapter extends AutoRVAdapter {
     public StoreListAdapter(StoreListActivity activity, List<StoreInfo> list) {
         super(activity, list);
         this.infos = list;
-        this.activity=activity;
+        this.activity = activity;
     }
 
     @Override
     public int onCreateViewLayoutID(int viewType) {
-        return R.layout.item_store;
+        return R.layout.item_store_store;
     }
 
     @Override
@@ -36,6 +36,8 @@ public class StoreListAdapter extends AutoRVAdapter {
         vh.getTextView(R.id.text_name).setText(infos.get(position).getName());
         GlideUtils.CreateImageRound(infos.get(position).getLogo(), vh.getImageView(R.id.iv_photo), 5);
         vh.getTextView(R.id.tv_address).setText(info.getAddress());
+        vh.getTextView(R.id.text_distance).setText(info.getDistance() + "m");
+
         vh.getTextView(R.id.text_verify).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -92,7 +92,7 @@ public class StoreActivity extends BaseActivity implements OnLoadMoreListener, N
                 finish();
                 break;
             case R.id.title_right_btn:
-
+                startActivity(new Intent(this,StoreListActivity.class));
                 break;
         }
     }

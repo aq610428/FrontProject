@@ -62,6 +62,16 @@ public class StoreInfo implements Serializable {
     private String stringCreateTime;
     private String stringUpdateTime;
 
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
+    private String distance;
+
     public String getId() {
         return id;
     }

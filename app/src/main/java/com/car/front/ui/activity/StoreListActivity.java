@@ -115,13 +115,15 @@ public class StoreListActivity extends BaseActivity implements OnLoadMoreListene
 
 
     private void qury() {
-        String sign = "memberId=" + info.getId() + "&partnerid=" + Constants.PARTNERID + Constants.SECREKEY;
+        String sign ="lat=22.580676&lng=113.954395" +"&memberid=" + info.getId() + "&partnerid=" + Constants.PARTNERID + Constants.SECREKEY;
         showProgressDialog(this, false);
         Map<String, String> params = okHttpModel.getParams();
         params.put("apptype", Constants.TYPE);
-        params.put("memberId", info.getId() + "");
+        params.put("memberid", info.getId() + "");
         params.put("limit", limit + "");
         params.put("page", page + "");
+        params.put("lat",  "22.580676");
+        params.put("lng", "113.954395");
         params.put("partnerid", Constants.PARTNERID);
         params.put("sign", Md5Util.encode(sign));
         okHttpModel.get(Api.GET_STORE_VERSION, params, Api.GET_STORE_VERSION_ID, this);
