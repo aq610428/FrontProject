@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -24,16 +23,12 @@ import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
-import com.amap.api.services.core.PoiItem;
 import com.car.front.R;
 import com.car.front.base.BaseActivity;
 import com.car.front.bean.StoreInfo;
-import com.car.front.util.Constants;
 import com.car.front.util.Utility;
 import com.car.front.weight.PreferenceUtils;
 import com.car.front.weight.SensorEventHelper;
-
-import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -207,30 +202,18 @@ public class LocationActivity extends BaseActivity implements LocationSource, AM
 
 
     private void showMarker() {
-        List<LatLng> latLngs = new ArrayList<>();
         infos = (List<StoreInfo>) getIntent().getSerializableExtra("infos");
         if (infos != null && infos.size() > 0) {
-            latLngs.add(new LatLng(22.580677, 113.954396));
-            latLngs.add(new LatLng(22.579924, 113.956284));
-            latLngs.add(new LatLng(22.585511, 113.936844));
-            latLngs.add(new LatLng(22.585313, 113.957405));
-            latLngs.add(new LatLng(22.558406, 113.961305));
-            latLngs.add(new LatLng(22.556702, 113.954396));
-            latLngs.add(new LatLng(22.580677, 113.954396));
-            latLngs.add(new LatLng(22.580677, 113.954396));
-            latLngs.add(new LatLng(22.580677, 113.954396));
-            if (latLngs != null && latLngs.size() > 0) {
-                for (int i = 0; i < latLngs.size(); i++) {
-                    Bitmap bMap = BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_address);
-                    BitmapDescriptor des = BitmapDescriptorFactory.fromBitmap(bMap);
-                    MarkerOptions options = new MarkerOptions();
-                    options.icon(des);
-                    options.title(infos.get(i).getName());
-                    options.snippet(infos.get(i).getAddress()+"\n"+infos.get(i).getContactPerson()+"  "+infos.get(i).getPhone());
-                    options.anchor(0.5f, 0.5f);
-                    options.position(latLngs.get(i));
-                    mLocMarker =aMap.addMarker(options);
-                }
+            for (int i = 0; i < infos.size(); i++) {
+                Bitmap bMap = BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_address);
+                BitmapDescriptor des = BitmapDescriptorFactory.fromBitmap(bMap);
+                MarkerOptions options = new MarkerOptions();
+                options.icon(des);
+                options.title(infos.get(i).getName());
+                options.snippet(infos.get(i).getAddress()+"\n"+infos.get(i).getContactPerson()+"  "+infos.get(i).getPhone());
+                options.anchor(0.5f, 0.5f);
+                options.position(new LatLng(infos.get(i).getLat(),infos.get(i).getLng()));
+                mLocMarker =aMap.addMarker(options);
             }
 
         }

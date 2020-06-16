@@ -31,7 +31,6 @@ import com.car.front.util.ToastUtil;
 import com.car.front.util.Utility;
 import com.car.front.weight.NoDataView;
 import org.json.JSONObject;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
