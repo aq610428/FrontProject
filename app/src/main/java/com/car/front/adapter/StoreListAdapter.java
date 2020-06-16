@@ -1,13 +1,10 @@
 package com.car.front.adapter;
 
-import android.content.Context;
 import android.view.View;
-
 import com.car.front.R;
 import com.car.front.bean.StoreInfo;
 import com.car.front.glide.GlideUtils;
 import com.car.front.ui.activity.StoreListActivity;
-
 import java.util.List;
 
 /**
