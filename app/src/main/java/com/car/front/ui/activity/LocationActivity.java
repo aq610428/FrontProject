@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -29,6 +30,7 @@ import com.car.front.bean.StoreInfo;
 import com.car.front.util.Utility;
 import com.car.front.weight.PreferenceUtils;
 import com.car.front.weight.SensorEventHelper;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +96,7 @@ public class LocationActivity extends BaseActivity implements LocationSource, AM
         title_text_tv = getView(R.id.title_text_tv);
         title_left_btn = getView(R.id.title_left_btn);
         title_left_btn.setOnClickListener(this);
-        title_text_tv.setText("店铺位置");
+        title_text_tv.setText("门店位置");
     }
 
 
@@ -205,15 +207,15 @@ public class LocationActivity extends BaseActivity implements LocationSource, AM
         infos = (List<StoreInfo>) getIntent().getSerializableExtra("infos");
         if (infos != null && infos.size() > 0) {
             for (int i = 0; i < infos.size(); i++) {
-                Bitmap bMap = BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_address);
+                Bitmap bMap = BitmapFactory.decodeResource(this.getResources(), R.mipmap.poi_marker_pressed);
                 BitmapDescriptor des = BitmapDescriptorFactory.fromBitmap(bMap);
                 MarkerOptions options = new MarkerOptions();
                 options.icon(des);
                 options.title(infos.get(i).getName());
-                options.snippet(infos.get(i).getAddress()+"\n"+infos.get(i).getContactPerson()+"  "+infos.get(i).getPhone());
+                options.snippet(infos.get(i).getAddress() + "\n" + infos.get(i).getContactPerson() + "  " + infos.get(i).getPhone());
                 options.anchor(0.5f, 0.5f);
-                options.position(new LatLng(infos.get(i).getLat(),infos.get(i).getLng()));
-                mLocMarker =aMap.addMarker(options);
+                options.position(new LatLng(infos.get(i).getLat(), infos.get(i).getLng()));
+                mLocMarker = aMap.addMarker(options);
             }
 
         }
