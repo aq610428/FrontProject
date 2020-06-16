@@ -8,15 +8,12 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.car.front.R;
-import com.car.front.adapter.StoreAdapter;
 import com.car.front.adapter.StoreListAdapter;
 import com.car.front.base.BaseActivity;
 import com.car.front.base.BaseApplication;
@@ -33,9 +30,7 @@ import com.car.front.util.SaveUtils;
 import com.car.front.util.ToastUtil;
 import com.car.front.util.Utility;
 import com.car.front.weight.NoDataView;
-
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -84,6 +79,7 @@ public class StoreListActivity extends BaseActivity implements OnLoadMoreListene
         LinearLayoutManager manager = new LinearLayoutManager(this);
         swipe_target.setLayoutManager(manager);
         mNoDataView.textView.setText("您还没有添加门店");
+        title_right_btn.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.icon_add_store,0,0,0);
     }
 
     @Override
@@ -98,6 +94,9 @@ public class StoreListActivity extends BaseActivity implements OnLoadMoreListene
         switch (v.getId()) {
             case R.id.title_left_btn:
                 finish();
+                break;
+            case R.id.title_right_btn:
+                startActivity(new Intent(this,LocationActivity.class));
                 break;
         }
     }
