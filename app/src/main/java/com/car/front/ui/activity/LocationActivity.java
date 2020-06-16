@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -26,9 +27,13 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.services.core.PoiItem;
 import com.car.front.R;
 import com.car.front.base.BaseActivity;
+import com.car.front.bean.StoreInfo;
+import com.car.front.util.Constants;
 import com.car.front.util.Utility;
 import com.car.front.weight.PreferenceUtils;
 import com.car.front.weight.SensorEventHelper;
+
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +44,7 @@ import java.util.List;
  * @name:定位
  */
 public class LocationActivity extends BaseActivity implements LocationSource, AMapLocationListener, AMap.OnMarkerClickListener,
-       AMap.OnMapClickListener{
+        AMap.OnMapClickListener {
     private TextView title_text_tv, title_left_btn;
     private AMap aMap;
     private MapView mapView;
@@ -58,6 +63,7 @@ public class LocationActivity extends BaseActivity implements LocationSource, AM
             Manifest.permission.READ_PHONE_STATE,
             BACK_LOCATION_PERMISSION
     };
+    private List<StoreInfo> infos = new ArrayList<>();
 
 
     @Override
@@ -69,6 +75,7 @@ public class LocationActivity extends BaseActivity implements LocationSource, AM
     }
 
     private boolean needCheckBackLocation = false;
+
     private void request() {
         if (Build.VERSION.SDK_INT > 28 && getApplicationContext().getApplicationInfo().targetSdkVersion > 28) {
             needPermissions = new String[]{
@@ -105,6 +112,7 @@ public class LocationActivity extends BaseActivity implements LocationSource, AM
         if (mSensorHelper != null) {
             mSensorHelper.registerSensorListener();
         }
+
     }
 
 
@@ -149,7 +157,7 @@ public class LocationActivity extends BaseActivity implements LocationSource, AM
                     } catch (Throwable e) {
 
                     }
-                }else{
+                } else {
                     init();
                 }
             }
@@ -168,7 +176,7 @@ public class LocationActivity extends BaseActivity implements LocationSource, AM
         aMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
         aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
         aMap.setOnMarkerClickListener(this);
-        detailMarker = aMap.addMarker(new MarkerOptions());
+        aMap.addMarker(new MarkerOptions());
         aMap.setOnMapClickListener(this);
     }
 
@@ -198,14 +206,35 @@ public class LocationActivity extends BaseActivity implements LocationSource, AM
     }
 
 
-    private void showMarker(LatLng latlng) {
-        aMap.clear();
-        MarkerOptions markerOption = new MarkerOptions().icon(BitmapDescriptorFactory
-                .defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-                .position(latlng)
-                .draggable(true);
-        markerOption.draggable(true);//设置Marker可拖动
-        aMap.addMarker(markerOption);
+    private void showMarker() {
+        List<LatLng> latLngs = new ArrayList<>();
+        infos = (List<StoreInfo>) getIntent().getSerializableExtra("infos");
+        if (infos != null && infos.size() > 0) {
+            latLngs.add(new LatLng(22.580677, 113.954396));
+            latLngs.add(new LatLng(22.579924, 113.956284));
+            latLngs.add(new LatLng(22.585511, 113.936844));
+            latLngs.add(new LatLng(22.585313, 113.957405));
+            latLngs.add(new LatLng(22.558406, 113.961305));
+            latLngs.add(new LatLng(22.556702, 113.954396));
+            latLngs.add(new LatLng(22.580677, 113.954396));
+            latLngs.add(new LatLng(22.580677, 113.954396));
+            latLngs.add(new LatLng(22.580677, 113.954396));
+            if (latLngs != null && latLngs.size() > 0) {
+                for (int i = 0; i < latLngs.size(); i++) {
+                    Bitmap bMap = BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_address);
+                    BitmapDescriptor des = BitmapDescriptorFactory.fromBitmap(bMap);
+                    MarkerOptions options = new MarkerOptions();
+                    options.icon(des);
+                    options.title(infos.get(i).getName());
+                    options.snippet(infos.get(i).getAddress()+"\n"+infos.get(i).getContactPerson()+"  "+infos.get(i).getPhone());
+                    options.anchor(0.5f, 0.5f);
+                    options.position(latLngs.get(i));
+                    mLocMarker =aMap.addMarker(options);
+                }
+            }
+
+        }
+
     }
 
 
@@ -231,7 +260,7 @@ public class LocationActivity extends BaseActivity implements LocationSource, AM
         if (mListener != null && amapLocation != null) {
             if (amapLocation != null && amapLocation.getErrorCode() == 0) {
                 LatLng latLng = new LatLng(amapLocation.getLatitude(), amapLocation.getLongitude());
-                if (!Utility.isEmpty(amapLocation.getCity())){
+                if (!Utility.isEmpty(amapLocation.getCity())) {
                     PreferenceUtils.setPrefString(this, "city", amapLocation.getCity());
                     PreferenceUtils.setPrefString(this, "district", amapLocation.getDistrict());
                     PreferenceUtils.setPrefString(this, "provider", amapLocation.getProvince());
@@ -242,11 +271,11 @@ public class LocationActivity extends BaseActivity implements LocationSource, AM
                     addMarker(latLng);//添加定位图标
                     mSensorHelper.setCurrentMarker(mLocMarker);//定位图标旋转
                     aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
+                    showMarker();
                 }
             } else {
                 String errText = "定位失败," + amapLocation.getErrorCode() + ": " + amapLocation.getErrorInfo();
                 Log.e("AmapErr", errText);
-
             }
         }
     }
@@ -295,8 +324,6 @@ public class LocationActivity extends BaseActivity implements LocationSource, AM
         deactivate();
     }
 
-    private PoiItem mPoi;
-    private Marker detailMarker;
 
     @Override
     public boolean onMarkerClick(Marker marker) {
@@ -304,15 +331,10 @@ public class LocationActivity extends BaseActivity implements LocationSource, AM
     }
 
 
-
-
     @Override
     public void onMapClick(LatLng latLng) {
-        showMarker(latLng);
+
     }
-
-
-
 
 
     /**

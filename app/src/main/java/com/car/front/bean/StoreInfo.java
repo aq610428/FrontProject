@@ -45,8 +45,8 @@ public class StoreInfo implements Serializable {
     private String city;
     private String area;
     private String address;
-    private String lng;
-    private String lat;
+    private double lng;
+    private double lat;
     private String logo;
     private String brandName;
     private String chainName;
@@ -136,19 +136,19 @@ public class StoreInfo implements Serializable {
         this.address = address;
     }
 
-    public String getLng() {
+    public double getLng() {
         return lng;
     }
 
-    public void setLng(String lng) {
+    public void setLng(double lng) {
         this.lng = lng;
     }
 
-    public String getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(String lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 

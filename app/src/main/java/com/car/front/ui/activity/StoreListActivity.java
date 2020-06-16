@@ -31,6 +31,8 @@ import com.car.front.util.ToastUtil;
 import com.car.front.util.Utility;
 import com.car.front.weight.NoDataView;
 import org.json.JSONObject;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -96,7 +98,9 @@ public class StoreListActivity extends BaseActivity implements OnLoadMoreListene
                 finish();
                 break;
             case R.id.title_right_btn:
-                startActivity(new Intent(this,LocationActivity.class));
+                Intent intent=new Intent(this,LocationActivity.class);
+                intent.putExtra("infos", (Serializable) infos);
+                startActivity(intent);
                 break;
         }
     }
